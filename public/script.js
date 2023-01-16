@@ -1,15 +1,16 @@
 let player;
-
-fetch("/turn")
+let room_id;
+fetch("/getdata")
   .then((res) => res.json())
-  .then(({ turn }) => {
-    if (turn) {
+  .then(({ player, room_id }) => {
+    if (player == "x") {
       $(".player").html("X");
       player = "x";
     } else {
       $(".player").html("O");
       player = "o";
     }
+    room_id = room_id;
   });
 
 $(".cell").click(function () {

@@ -16,19 +16,20 @@ fetch("/getdata")
 $(".cell").click(function () {
   const el = $(this);
   const [x, y] = $(this).attr("data-cor").split("-");
-  fetch("/state", {
+  fetch("/move", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ x, y, player }),
+    body: JSON.stringify({ x, y, player, id: room_id }),
   })
     .then((res) => {
       return res.json();
     })
-    .then(({ empty }) => {
-      console.log(empty);
-      if (empty) {
+    .then(({ err, msg }) => {
+      if (err) {
+        $(".error").html(msg);
+      } else {
         el.css("background-color", player == "x" ? "green" : "red");
       }
     });

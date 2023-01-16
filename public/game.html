@@ -54,6 +54,7 @@ margin:5px;
     </div>
   </div>
   <div class="Player"></div>
+  <div class="error" ></div>
 </main>
 <footer>
 
@@ -61,42 +62,42 @@ margin:5px;
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.js" integrity="sha512-nO7wgHUoWPYGCNriyGzcFwPSF+bPDOR+NvtOYy2wMcWkrnCNPKBcFEkU80XIN14UVja0Gdnff9EmydyLlOL7mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script >
-
 let player;
-
-fetch("/turn")
+let room_id;
+fetch("/getdata")
   .then((res) => res.json())
-  .then(({ turn }) => {
-    if (turn) {
+  .then(({ player, room_id }) => {
+    if (player == "x") {
       $(".player").html("X");
       player = "x";
     } else {
       $(".player").html("O");
       player = "o";
     }
+    room_id = room_id;
   });
 
 $(".cell").click(function () {
   const el = $(this);
   const [x, y] = $(this).attr("data-cor").split("-");
-  fetch("/state", {
+  fetch("/move", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ x, y, player }),
+    body: JSON.stringify({ x, y, player, id: room_id }),
   })
     .then((res) => {
       return res.json();
     })
-    .then(({ empty }) => {
-      console.log(empty);
-      if (empty) {
+    .then(({ err, msg }) => {
+      if (err) {
+        $(".error").html(msg);
+      } else {
         el.css("background-color", player == "x" ? "green" : "red");
       }
     });
 });
-
 
 
 </script>

@@ -36,6 +36,7 @@ app.post("/createroom", (req, res) => {
       [0, 0, 0],
       [0, 0, 0],
     ],
+    turn: "x",
     chats: [],
     player1Name: "",
     player2Name: "",
@@ -62,19 +63,23 @@ app.get("/turn", (req, res) => {
   turn = !turn;
   res.send({ turn });
 });
-app.post("/state", (req, res) => {
-  const { x, y, player } = req.body;
+app.post("/move", (req, res) => {
+  const { x, y, player, id } = req.body;
   console.log(player);
-  console.log(!turn);
-  if ((turn && player == "x") || (!turn && player == "o")) {
-    const empty = state[x][y] == 0;
-    if (empty) {
-      state[x][y] = 1;
+  const room = roomData[id];
+  if (room.numPlayers == 2) {
+    if ((turn && player == "x") || (!turn && player == "o")) {
+      const empty = state[x][y] == 0;
+      if (empty) {
+        state[x][y] = 1;
+      }
+
+      res.send({ err: false, msg: "no error", empty });
+    } else {
+      res.send({ empty: false });
     }
-    turn = !turn;
-    res.send({ empty });
   } else {
-    res.send({ empty: false });
+    res.send({ err: true, msg: "there is no other player" });
   }
 });
 
@@ -89,7 +94,7 @@ app.post("/joinroom", (req, res) => {
     console.log("yes");
     roomData[id].numPlayers += 1;
 
-    if (roomData[i].numPlayers == 1) {
+    if (roomData[id].numPlayers == 1) {
       player = "x";
     } else {
       player = "o";

@@ -38,7 +38,21 @@ app.post("/createroom", (req, res) => {
     player2Name: "",
     id: id,
   };
-  res.send(`room Created successfully at id: ${id}`);
+  res.send(`room Created successfully at id: ${id}
+  <html>
+
+  <body>
+
+  <form>
+  <input type="text" placeholder="room id" name="roomid" value=${id} />
+  <button>Join room</button>
+  </form>
+
+  </body>
+
+  </html>
+  
+  `);
 });
 
 app.get("/turn", (req, res) => {

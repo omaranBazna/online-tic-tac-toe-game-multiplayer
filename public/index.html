@@ -9,24 +9,14 @@
   <h1>Tic Tac Toe</h1>
 </header>
 <main>
-  <div class="board">
-    <div class="row">
-      <div class="cell" data-cor="0-0"></div>
-      <div class="cell" data-cor="0-1"></div>
-      <div class="cell" data-cor="0-2"></div>
-    </div>
-    <div class="row">
-      <div class="cell" data-cor="1-0"></div>
-      <div class="cell" data-cor="1-1"></div>
-      <div class="cell" data-cor="1-2"></div>
-    </div>
-    <div class="row">
-      <div class="cell" data-cor="2-0"></div>
-      <div class="cell" data-cor="2-1"></div>
-      <div class="cell" data-cor="2-2"></div>
-    </div>
-  </div>
-  <div class="Player"></div>
+ <form action="/createroom" method="post">
+    <button>Create new room</button>
+  
+ </form>
+ <form>
+    <input type="text" placeholder="room id" name="roomid" />
+    <button>Join room</button>
+</form>
 </main>
 <footer>
 

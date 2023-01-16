@@ -33,6 +33,9 @@ app.post("/createroom", (req, res) => {
       [0, 0, 0],
       [0, 0, 0],
     ],
+    chats: [],
+    player1Name: "",
+    player2Name: "",
     id: id,
   };
   res.send(`room Created successfully at id: ${id}`);

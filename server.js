@@ -8,8 +8,13 @@ const state = [
 ];
 app.use(express.json());
 app.use("/", express.static("public"));
-app.post("/move", (req, res) => {
-  const move = req.body;
+app.post("/state", (req, res) => {
+  const { x, y } = req.body;
+  const empty = state[x][y] == 0;
+  if (empty) {
+    state[x][y] = 1;
+  }
+  res.send({ empty });
 });
 
 app.listen(port, () => {

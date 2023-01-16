@@ -58,25 +58,29 @@ app.post("/createroom", (req, res) => {
   
   `);
 });
-
-app.get("/turn", (req, res) => {
-  turn = !turn;
-  res.send({ turn });
+app.post("/check", (req, res) => {
+  const id = req.body.id;
+  const room = roomData[id];
+  res.send(room);
 });
 app.post("/move", (req, res) => {
+  console.log("get move from player");
+  console.log(req.body);
   const { x, y, player, id } = req.body;
-  console.log(player);
+
   const room = roomData[id];
   if (room.numPlayers == 2) {
-    if ((turn && player == "x") || (!turn && player == "o")) {
-      const empty = state[x][y] == 0;
+    if (room.turn == player) {
+      const empty = room.state[x][y] == 0;
       if (empty) {
-        state[x][y] = 1;
+        room.state[x][y] = player == "x" ? 1 : 2;
+        room.turn = player == "x" ? "o" : "x";
+        res.send({ err: false, msg: "no error", state: room.state });
+      } else {
+        res.send({ err: true, msg: "it is not an empty cell" });
       }
-
-      res.send({ err: false, msg: "no error", empty });
     } else {
-      res.send({ empty: false });
+      res.send({ err: true, msg: "it is not your turn" });
     }
   } else {
     res.send({ err: true, msg: "there is no other player" });

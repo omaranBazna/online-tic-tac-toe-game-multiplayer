@@ -1,6 +1,16 @@
 const express = require("express");
 const port = 3000;
 const app = express();
+
+const generateRandomId = () => {
+  let id = "";
+  for (let i = 0; i < 10; i++) {
+    id += Math.floor(Math.random() * 10);
+  }
+  return id;
+};
+const rooms = [];
+const roomData = {};
 const state = [
   [0, 0, 0],
   [0, 0, 0],
@@ -9,6 +19,25 @@ const state = [
 let turn = true;
 app.use(express.json());
 app.use("/", express.static("public"));
+
+app.post("/createroom", (req, res) => {
+  let id = generateRandomId();
+  while (rooms.indexOf(id) > -1) {
+    id = generateRandomId();
+  }
+  rooms.push(id);
+  roomData[id] = {
+    numPlayers: 0,
+    state: [
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+    ],
+    id: id,
+  };
+  res.send(`room Created successfully at id: ${id}`);
+});
+
 app.get("/turn", (req, res) => {
   turn = !turn;
   res.send({ turn });

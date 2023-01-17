@@ -69,6 +69,7 @@ text-align:center;
 <script >
 let gplayer;
 let groom_id;
+let end=false;
 fetch("/getdata")
   .then((res) => res.json())
   .then(({ player, room_id }) => {
@@ -96,9 +97,19 @@ setInterval(()=>{
   }).then(res=>{
     return res.json();
   }).then(room=>{
-    const {turn,state}=room;
+    const {turn,state,winner}=room;
   $(".turn").html(turn);
-    
+    if(winner==1){
+     $(".msg").html("X win!!")
+     end=true;
+    }else if(winner==2){
+      $(".msg").html("O win!!")
+      end=true;
+    }else if(winner==3){
+      $(".msg").html("Draw")
+      end=true;
+    }
+    if(!end){
     for(let i=0;i<3;i++){
           for(let j=0;j<3;j++){
             console.log(state[i][j])
@@ -106,6 +117,7 @@ setInterval(()=>{
             el2.html(state[i][j]==0?"":state[i][j]==1?"X":"O")
           }
         }
+      }
   }).catch(e=>console.log(e))
 },300)
 
@@ -125,13 +137,25 @@ $(".cell").click(function () {
     .then((res) => {
       return res.json();
     })
-    .then(({ err, msg,state }) => {
+    .then(({ err, msg,state,winner }) => {
       if (err) {
         $(".error").html(msg);
       } else {
       
+        if(winner==1){
+     $(".msg").html("X win!!")
+     end=true;
+    }else if(winner==2){
+      $(".msg").html("O win!!")
+      end=true;
+    }else if(winner==3){
+      $(".msg").html("Draw")
+      end=true;
+    }
+
+
         $(".error").html("");
-      
+      if(!end){
         for(let i=0;i<3;i++){
           for(let j=0;j<3;j++){
             console.log(state[i][j])
@@ -140,6 +164,7 @@ $(".cell").click(function () {
             el2.html(state[i][j]==0?"":state[i][j]==1?"X":"O")
           }
         }
+      }
       }
     });
 });

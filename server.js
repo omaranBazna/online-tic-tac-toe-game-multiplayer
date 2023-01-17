@@ -75,7 +75,13 @@ app.post("/move", (req, res) => {
       if (empty) {
         room.state[x][y] = player == "x" ? 1 : 2;
         room.turn = player == "x" ? "o" : "x";
-        res.send({ err: false, msg: "no error", state: room.state });
+        let winner = check(room.state);
+        res.send({
+          err: false,
+          msg: "no error",
+          state: room.state,
+          winner: winner,
+        });
       } else {
         res.send({ err: true, msg: "it is not an empty cell" });
       }
@@ -111,6 +117,58 @@ app.post("/joinroom", (req, res) => {
 app.get("/getdata", (req, res) => {
   res.send({ player, room_id });
 });
+
 app.listen(port, () => {
   console.log("app is listening on port " + port);
 });
+function check(state) {
+  ///checking the rows
+  for (let i in [0, 1, 2]) {
+    if (
+      state[0][i] > 0 &&
+      state[0][i] == state[1][i] &&
+      state[0][i] == state[2][i]
+    ) {
+      return state[0][i];
+    }
+  }
+
+  ///checking the cols
+  for (let i in [0, 1, 2]) {
+    if (
+      state[i][0] > 0 &&
+      state[i][0] == state[i][1] &&
+      state[i][0] == state[i][2]
+    ) {
+      return state[i][0];
+    }
+  }
+
+  ///check left-to-right
+  if (
+    state[0][0] > 0 &&
+    state[0][0] == state[1][1] &&
+    state[0][0] == state[2][2]
+  ) {
+    return state[0][0];
+  }
+
+  ///check right-to-left
+  if (
+    state[0][2] > 0 &&
+    state[1][1] == state[0][2] &&
+    state[0][2] == state[1][1]
+  ) {
+    return state[1];
+  }
+
+  ///check draw
+  for (let i in [0, 1, 2]) {
+    for (let j in [0, 1, 2]) {
+      if (state[i][j] == 0) {
+        return -1;
+      }
+    }
+  }
+  return 3;
+}

@@ -25,6 +25,10 @@ height:100px;
 width:100px;
 border:1px solid black;
 margin:5px;
+font-size:40px;
+font-family: Arial, Helvetica, sans-serif;
+line-height:100px;
+text-align:center;
 }
 
 
@@ -132,7 +136,8 @@ $(".cell").click(function () {
           for(let j=0;j<3;j++){
             console.log(state[i][j])
             const el2=$(`div[data-cor=${i}-${j}]`)
-            el2.css("background-color",state[i][j]==0?"white":state[i][j]==1?"red":"green")
+         
+            el2.html(state[i][j]==0?"":state[i][j]==1?"X":"O")
           }
         }
       }

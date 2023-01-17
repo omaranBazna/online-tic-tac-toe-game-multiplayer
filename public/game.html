@@ -103,7 +103,7 @@ setInterval(()=>{
           for(let j=0;j<3;j++){
             console.log(state[i][j])
             const el2=$(`div[data-cor=${i}-${j}]`)
-            el2.css("background-color",state[i][j]==0?"white":state[i][j]==1?"red":"green")
+            el2.html(state[i][j]==0?"":state[i][j]==1?"X":"O")
           }
         }
   }).catch(e=>console.log(e))

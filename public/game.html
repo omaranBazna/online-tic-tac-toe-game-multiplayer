@@ -60,6 +60,7 @@ text-align:center;
   <div class="Player"></div>
   <div class="error" ></div>
   <div>Turn is : <span class="turn"></span></div>
+  <div class="msg"></div>
 </main>
 <footer>
 
@@ -99,9 +100,10 @@ setInterval(()=>{
   }).then(room=>{
     const {turn,state,winner}=room;
     console.log("winner: ",winner)
-    if(!end){
+   
   $(".turn").html(turn);
-
+   console.log("state :",state)
+   
     if(winner==1){
      $(".msg").html("X win!!")
      end=true;
@@ -120,7 +122,7 @@ setInterval(()=>{
             el2.html(state[i][j]==0?"":state[i][j]==1?"X":"O")
           }
         }
-      }
+      
   }).catch(e=>console.log(e))
 },300)
 

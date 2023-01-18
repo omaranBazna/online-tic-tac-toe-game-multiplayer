@@ -70,7 +70,7 @@ app.post("/check", (req, res) => {
     winner = -1;
   }
 
-  res.send({ room, winner: winner });
+  res.send({ ...room, winner: winner });
 });
 app.post("/move", (req, res) => {
   console.log("get move from player");
@@ -168,7 +168,7 @@ function check(state) {
     state[1][1] == state[0][2] &&
     state[0][2] == state[1][1]
   ) {
-    return state[1];
+    return state[1][1];
   }
 
   ///check draw

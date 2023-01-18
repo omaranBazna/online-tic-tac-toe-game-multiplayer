@@ -98,7 +98,9 @@ setInterval(()=>{
     return res.json();
   }).then(room=>{
     const {turn,state,winner}=room;
+    if(!end){
   $(".turn").html(turn);
+
     if(winner==1){
      $(".msg").html("X win!!")
      end=true;
@@ -109,7 +111,7 @@ setInterval(()=>{
       $(".msg").html("Draw")
       end=true;
     }
-    if(!end){
+ 
     for(let i=0;i<3;i++){
           for(let j=0;j<3;j++){
             console.log(state[i][j])

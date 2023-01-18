@@ -98,6 +98,7 @@ setInterval(()=>{
     return res.json();
   }).then(room=>{
     const {turn,state,winner}=room;
+    console.log("winner: ",winner)
     if(!end){
   $(".turn").html(turn);
 

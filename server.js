@@ -3,6 +3,7 @@ const port = 3000;
 const app = express();
 
 const bodyParser = require("body-parser");
+const e = require("express");
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const generateRandomId = () => {
@@ -61,7 +62,15 @@ app.post("/createroom", (req, res) => {
 app.post("/check", (req, res) => {
   const id = req.body.id;
   const room = roomData[id];
-  res.send(room);
+
+  let winner;
+  if (room.state) {
+    winner = check(room.state);
+  } else {
+    winner = -1;
+  }
+
+  res.send({ room, winner: winner });
 });
 app.post("/move", (req, res) => {
   console.log("get move from player");

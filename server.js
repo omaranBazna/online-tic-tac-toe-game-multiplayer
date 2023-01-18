@@ -64,7 +64,7 @@ app.post("/check", (req, res) => {
   const room = roomData[id];
 
   let winner;
-  if (room.state) {
+  if (room && room.state) {
     winner = check(room.state);
   } else {
     winner = -1;

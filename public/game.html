@@ -100,7 +100,7 @@ setInterval(()=>{
   }).then(room=>{
     const {turn,state,winner}=room;
     console.log("winner: ",winner)
-   
+   if(!end){
   $(".turn").html(turn);
    console.log("state :",state)
    
@@ -122,7 +122,7 @@ setInterval(()=>{
             el2.html(state[i][j]==0?"":state[i][j]==1?"X":"O")
           }
         }
-      
+   }
   }).catch(e=>console.log(e))
 },300)
 
@@ -146,7 +146,7 @@ $(".cell").click(function () {
       if (err) {
         $(".error").html(msg);
       } else {
-      
+      if(!end){
         if(winner==1){
      $(".msg").html("X win!!")
      end=true;
@@ -160,7 +160,7 @@ $(".cell").click(function () {
 
 
         $(".error").html("");
-      if(!end){
+      
         for(let i=0;i<3;i++){
           for(let j=0;j<3;j++){
             console.log(state[i][j])
@@ -170,7 +170,7 @@ $(".cell").click(function () {
           }
         }
       }
-      }
+    }
     });
 });
 

@@ -13,6 +13,16 @@ h1{
     text-align:center;
   
 }
+main{
+    width:fit-content;
+    height:fit-content;
+    margin:auto;
+    display:flex;
+    background-color: rgba(88, 167, 228, 0.596);
+    border-radius:10px;
+    padding:20px;
+    margin-top:100px;
+}
 .board{
 display:flex;
 flex-direction: column;

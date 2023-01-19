@@ -1,3 +1,13 @@
+
+body{
+    background-image: url("images/background.png");
+    background-size: cover;
+}
+@media (min-width:1000px) {
+    body{
+    background-image: url("images/largescreens.png");
+    }
+}
 h1{
     font-family:Arial;
     text-align:center;

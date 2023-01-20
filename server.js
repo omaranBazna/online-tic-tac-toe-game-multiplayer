@@ -43,21 +43,15 @@ app.post("/createroom", (req, res) => {
     player2Name: "",
     id: id,
   };
-  res.send(`room Created successfully at id: ${id}
-  <html>
 
-  <body>
+  roomData[id].numPlayers += 1;
 
-  <form action="/joinroom" method="post">
-  <input type="text" placeholder="room id" name="room" value=${id} />
-  <button>Join room</button>
-  </form>
-
-  </body>
-
-  </html>
-  
-  `);
+  if (roomData[id].numPlayers == 1) {
+    player = "x";
+  } else {
+    player = "o";
+  }
+  res.sendFile(__dirname + "/public/game.html");
 });
 app.post("/check", (req, res) => {
   const id = req.body.id;

@@ -61,7 +61,6 @@ function setUp(id) {
     res.sendFile(__dirname + "/public/game.html");
   });
 }
-app.get("/getData/:id", (req, res) => {});
 
 app.post("/check", (req, res) => {
   const id = req.body.id;

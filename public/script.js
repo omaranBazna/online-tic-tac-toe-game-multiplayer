@@ -1,6 +1,7 @@
 let gplayer;
 let arr = window.location.href.split("/");
 let groom_id = arr[arr.length - 1];
+$(".id").html(groom_id);
 let end = false;
 console.log(URL.arguments);
 setInterval(() => {

@@ -51,8 +51,17 @@ app.post("/createroom", (req, res) => {
   } else {
     player = "o";
   }
-  res.sendFile(__dirname + "/public/game.html");
+  console.log(rooms);
+  setUp(id);
+  res.redirect("/" + id);
 });
+
+function setUp(id) {
+  app.get("/" + id, (req, res) => {
+    res.sendFile(__dirname + "/public/game.html");
+  });
+}
+
 app.post("/check", (req, res) => {
   const id = req.body.id;
   const room = roomData[id];

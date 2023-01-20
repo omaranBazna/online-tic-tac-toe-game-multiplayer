@@ -121,7 +121,7 @@ app.post("/joinroom", (req, res) => {
     } else {
       player = "o";
     }
-    res.sendFile(__dirname + "/public/game.html");
+    res.redirect("/" + id);
   } else {
     res.send("sorry this room is full");
   }

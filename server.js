@@ -117,9 +117,6 @@ app.post("/joinroom", (req, res) => {
     res.send("sorry this room is full");
   }
 });
-app.get("/getdata", (req, res) => {
-  res.send({ player, room_id });
-});
 
 app.listen(port, () => {
   console.log("app is listening on port " + port);

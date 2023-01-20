@@ -1,7 +1,8 @@
 let gplayer;
-let groom_id;
+let arr = window.location.href.split("/");
+let groom_id = arr[arr.length - 1];
 let end = false;
-
+console.log(URL.arguments);
 setInterval(() => {
   fetch("/check", {
     method: "post",

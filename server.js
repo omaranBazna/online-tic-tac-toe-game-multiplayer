@@ -181,3 +181,6 @@ function check(state) {
   }
   return 3;
 }
+
+///we have an issue even when we try to log in to a room
+///both players are x ,x

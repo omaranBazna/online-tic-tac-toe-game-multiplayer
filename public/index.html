@@ -12,7 +12,7 @@
  <form action="/createroom" method="post">
     <button>Create new room</button>
  </form>
-  <form action="/joinroom" method="post">
+  <form id="joinform">
     <input name="room" id="roomid" type="text" placeholder="room id" />
     <input type="submit" value="Join room" ></input>
  </form>
@@ -23,7 +23,14 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.js" integrity="sha512-nO7wgHUoWPYGCNriyGzcFwPSF+bPDOR+NvtOYy2wMcWkrnCNPKBcFEkU80XIN14UVja0Gdnff9EmydyLlOL7mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="script.js"></script>
+<script>
+const formEl=document.getElementById("joinform")
+formEl.addEventListener("submit",(e)=>{
+   const id=document.getElementById("roomid").value
+   fetch("/"+id)
+})
 
+</script>
 </body>
 
 </html>

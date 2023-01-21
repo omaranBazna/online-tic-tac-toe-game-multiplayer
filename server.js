@@ -15,12 +15,7 @@ const generateRandomId = () => {
 };
 const rooms = [];
 const roomData = {};
-const state = [
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 0],
-];
-let turn = true;
+
 app.use(express.json());
 app.use("/", express.static("public"));
 

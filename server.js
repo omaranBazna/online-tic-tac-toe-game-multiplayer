@@ -53,7 +53,23 @@ app.post("/createroom", (req, res) => {
 
 function setUp(id) {
   app.get("/" + id, (req, res) => {
-    res.sendFile(__dirname + "/public/game.html");
+    const id = req.body.room;
+
+    room_id = id;
+
+    if (roomData[id].numPlayers < 2) {
+      console.log("yes");
+      roomData[id].numPlayers += 1;
+
+      if (roomData[id].numPlayers == 1) {
+        player = "x";
+      } else {
+        player = "o";
+      }
+      res.sendFile(__dirname + "/public/game.html");
+    } else {
+      res.send("sorry this room is full");
+    }
   });
 }
 
@@ -97,28 +113,6 @@ app.post("/move", (req, res) => {
     }
   } else {
     res.send({ err: true, msg: "there is no other player" });
-  }
-});
-
-let player;
-let room_id;
-app.post("/joinroom", (req, res) => {
-  const id = req.body.room;
-
-  room_id = id;
-
-  if (roomData[id].numPlayers < 2) {
-    console.log("yes");
-    roomData[id].numPlayers += 1;
-
-    if (roomData[id].numPlayers == 1) {
-      player = "x";
-    } else {
-      player = "o";
-    }
-    res.redirect("/" + id);
-  } else {
-    res.send("sorry this room is full");
   }
 });
 
